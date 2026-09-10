@@ -1,0 +1,44 @@
+# Local credentials and connection material
+.ssh/
+.pem/
+Project Planning/Handy Notes
+**/Handy Notes
+
+# Generated and local build output
+DevOps_AWS_EKS_GitOps_Project---PrivateOnly/
+DevOps_AWS_EKS_GitOps_Project.zip
+.DevOps_AWS_EKS_GitOps_Project---PrivateOnly/
+.DevOps_AWS_EKS_GitOps_Project---PrivateOnly.zip
+.py/
+**/target/
+**/node_modules/
+**/.venv/
+**/__pycache__/
+*.class
+*.log
+.coverage
+htmlcov/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Generated HTML companions can be tracked intentionally
+
+# Interview-ready project notes: keep the showcase clean while leaving the main project material available locally.
+# Only the one interview-specific internal note is excluded from Git; the three Learning-Notes files remain in the main project.
+Project Planning/**/00-Master-Execution-Plan.*
+Project Planning/**/02-DevOps-Tools-and-Code-Guide.*
+Project Planning/**/04-Final-Evidence-Screenshot-Plan.*
+Project Planning/**/05-AWS-Resource-Cleanup-Runbook.*
+Project Planning/**/06-Operations-and-Interview-Guide.*
+Project Planning/**/09-Technical-Command-Reference.*
+Proof Of Concent/Learning-Notes/**/04-Interview-Ready-Summary.*
+Proof Of Concent/Learning-Notes/**/04-Interview-Ready-Explanation.*

@@ -1,0 +1,6 @@
+Fashion Signup App
+==================
+
+Description:
+- Fashion Signup App on AWS EKS with Docker, Jenkins, Argo CD, Helm, SonarQube, Grafana,
+RDS, and S3

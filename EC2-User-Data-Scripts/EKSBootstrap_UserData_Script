@@ -1,0 +1,108 @@
+#!/bin/bash
+
+LOG_FILE="/var/log/eks-bootstrap-install.log"
+
+# Determine run number
+if [ -f "$LOG_FILE" ]; then
+    RUN_NUMBER=$(grep -c "^========== RUN " "$LOG_FILE" || true)
+    RUN_NUMBER=$((RUN_NUMBER + 1))
+else
+    RUN_NUMBER=1
+fi
+
+# Send output to log file and console
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+echo ""
+echo "========== RUN $RUN_NUMBER =========="
+echo "EKS Bootstrap Server setup started"
+echo "Date: $(date)"
+echo ""
+
+set -e
+
+#############################################
+# 1. System Update
+#############################################
+echo "[1/8] Updating packages..."
+apt-get update -y
+
+#############################################
+# 2. Install prerequisites
+#############################################
+echo "[2/8] Installing prerequisites..."
+apt-get install -y curl unzip wget tar gzip
+
+#############################################
+# 3. Install AWS CLI v2
+#############################################
+echo "[3/8] Installing AWS CLI v2..."
+cd /tmp
+curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip -q awscliv2.zip
+./aws/install
+rm -rf aws awscliv2.zip
+
+echo "AWS CLI version: $(aws --version)"
+
+#############################################
+# 4. Install kubectl
+#############################################
+echo "[4/8] Installing kubectl..."
+KUBECTL_VERSION=$(curl -sL https://dl.k8s.io/release/stable.txt)
+curl -sLO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
+chmod +x kubectl
+mv kubectl /usr/local/bin/kubectl
+
+echo "kubectl version: $(kubectl version --client --short 2>/dev/null || kubectl version --client)"
+
+#############################################
+# 5. Install eksctl
+#############################################
+echo "[5/8] Installing eksctl..."
+curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz" -o eksctl.tar.gz
+tar -xzf eksctl.tar.gz
+chmod +x eksctl
+mv eksctl /usr/local/bin/eksctl
+rm -f eksctl.tar.gz
+
+echo "eksctl version: $(eksctl version)"
+
+#############################################
+# 6. Give executable permissions (safety)
+#############################################
+echo "[6/8] Ensuring executable permissions..."
+chmod +x /usr/local/bin/kubectl
+chmod +x /usr/local/bin/eksctl
+chmod +x /usr/local/bin/aws || true
+
+#############################################
+# 7. Move tools to /bin (optional - as requested)
+#############################################
+echo "[7/8] Creating symlinks in /bin..."
+ln -sf /usr/local/bin/kubectl /bin/kubectl
+ln -sf /usr/local/bin/eksctl  /bin/eksctl
+ln -sf /usr/local/bin/aws     /bin/aws || true
+
+#############################################
+# 8. Final verification
+#############################################
+echo "[8/8] Verifying installations..."
+
+echo ""
+echo "========== EKS BOOTSTRAP SERVER INFO =========="
+echo "Hostname: $(hostname)"
+echo "Private IP: $(hostname -I | awk '{print $1}')"
+echo "AWS CLI: $(aws --version 2>&1)"
+echo "kubectl: $(kubectl version --client --short 2>/dev/null || kubectl version --client)"
+echo "eksctl: $(eksctl version)"
+echo ""
+echo "Tools location:"
+echo "  kubectl → $(which kubectl)"
+echo "  eksctl  → $(which eksctl)"
+echo "  aws     → $(which aws)"
+echo ""
+echo "EKS Bootstrap setup completed"
+echo "Date: $(date)"
+echo "========== RUN $RUN_NUMBER COMPLETE =========="
+echo ""

@@ -1,0 +1,271 @@
+```bash
+#!/bin/bash
+
+LOG_FILE="/var/log/sonarqube-install.log"
+
+# Determine run number
+if [ -f "$LOG_FILE" ]; then
+    RUN_NUMBER=$(grep -c "^========== RUN " "$LOG_FILE" || true)
+    RUN_NUMBER=$((RUN_NUMBER + 1))
+else
+    RUN_NUMBER=1
+fi
+
+# Send output to log file and console
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+echo ""
+echo "========== RUN $RUN_NUMBER =========="
+echo "SonarQube + PostgreSQL installation started"
+echo "Date: $(date)"
+echo ""
+
+set -e
+
+#############################################
+# 0. Set Hostname
+#############################################
+echo "[0/13] Setting hostname to sonarqube..."
+
+hostnamectl set-hostname sonarqube
+
+# Avoid duplicate hostname entries
+grep -q "sonarqube" /etc/hosts || echo "10.0.0.189 sonarqube" >> /etc/hosts
+
+#############################################
+# 1. System Update
+#############################################
+echo "[1/13] Updating packages..."
+
+apt-get update -y
+
+#############################################
+# 2. Add PostgreSQL Repository
+#############################################
+echo "[2/13] Adding PostgreSQL repository..."
+
+echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" \
+  > /etc/apt/sources.list.d/pgdg.list
+
+wget -qO - https://www.postgresql.org/media/keys/ACCC4CF8.asc \
+  | gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/postgresql.gpg
+
+apt-get update -y
+
+#############################################
+# 3. Install PostgreSQL
+#############################################
+echo "[3/13] Installing PostgreSQL..."
+
+DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  postgresql \
+  postgresql-contrib
+
+#############################################
+# 4. Enable and Start PostgreSQL
+#############################################
+echo "[4/13] Enabling and starting PostgreSQL..."
+
+systemctl enable postgresql
+systemctl start postgresql
+
+#############################################
+# 5. Configure PostgreSQL for SonarQube
+#############################################
+echo "[5/13] Creating SonarQube database and user..."
+
+runuser -u postgres -- psql <<EOF
+DO \$\$
+BEGIN
+  IF NOT EXISTS (
+    SELECT FROM pg_roles WHERE rolname = 'sonar'
+  ) THEN
+    CREATE USER sonar WITH ENCRYPTED PASSWORD 'sonar';
+  END IF;
+END
+\$\$;
+
+SELECT 'CREATE DATABASE sonarqube OWNER sonar'
+WHERE NOT EXISTS (
+  SELECT FROM pg_database WHERE datname = 'sonarqube'
+)\gexec
+
+GRANT ALL PRIVILEGES ON DATABASE sonarqube TO sonar;
+
+ALTER USER sonar WITH SUPERUSER;
+EOF
+
+#############################################
+# 6. Add Adoptium (Temurin) Repository
+#############################################
+echo "[6/13] Adding Adoptium (Temurin) repository..."
+
+apt-get install -y wget gpg apt-transport-https
+
+mkdir -p /etc/apt/keyrings
+
+wget -qO - \
+  https://packages.adoptium.net/artifactory/api/gpg/key/public \
+  | gpg --dearmor --yes \
+  | tee /etc/apt/keyrings/adoptium.gpg > /dev/null
+
+CODENAME=$(. /etc/os-release && echo "$VERSION_CODENAME")
+
+echo "Detected Ubuntu codename: $CODENAME"
+
+echo "deb [signed-by=/etc/apt/keyrings/adoptium.gpg] https://packages.adoptium.net/artifactory/deb $CODENAME main" \
+  | tee /etc/apt/sources.list.d/adoptium.list > /dev/null
+
+apt-get update -y
+
+#############################################
+# 7. Install Temurin 17 JDK
+#############################################
+echo "[7/13] Installing Temurin 17 JDK..."
+
+DEBIAN_FRONTEND=noninteractive apt-get install -y temurin-17-jdk
+
+#############################################
+# 8. Set Java 17 as Default
+#############################################
+echo "[8/13] Setting Java 17 as default..."
+
+update-alternatives --set java \
+  /usr/lib/jvm/temurin-17-jdk-amd64/bin/java
+
+update-alternatives --set javac \
+  /usr/lib/jvm/temurin-17-jdk-amd64/bin/javac
+
+echo "Java version:"
+java -version
+
+echo "Javac version:"
+javac -version
+
+#############################################
+# 9. System Limits for SonarQube
+#############################################
+echo "[9/13] Configuring system limits for SonarQube..."
+
+cat >> /etc/security/limits.conf <<EOF
+sonarqube   -   nofile   65536
+sonarqube   -   nproc    4096
+EOF
+
+cat >> /etc/sysctl.conf <<EOF
+vm.max_map_count=262144
+fs.file-max=65536
+EOF
+
+sysctl -p
+
+#############################################
+# 10. Create SonarQube User
+#############################################
+echo "[10/13] Creating sonarqube user..."
+
+id -u sonarqube &>/dev/null || \
+useradd -r -m -d /opt/sonarqube -s /bin/bash sonarqube
+
+#############################################
+# 11. Download and Install SonarQube
+#############################################
+echo "[11/13] Downloading SonarQube..."
+
+cd /opt
+
+# Remove previous installation
+rm -rf sonarqube
+
+SONAR_VERSION="25.1.0.102122"
+
+wget -q \
+  "https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-${SONAR_VERSION}.zip"
+
+apt-get install -y unzip
+
+unzip -q "sonarqube-${SONAR_VERSION}.zip"
+
+mv "sonarqube-${SONAR_VERSION}" sonarqube
+
+rm -f "sonarqube-${SONAR_VERSION}.zip"
+
+chown -R sonarqube:sonarqube /opt/sonarqube
+chmod -R 755 /opt/sonarqube
+
+#############################################
+# 12. Configure SonarQube Database
+#############################################
+echo "[12/13] Configuring SonarQube..."
+
+cat > /opt/sonarqube/conf/sonar.properties <<EOF
+sonar.jdbc.username=sonar
+sonar.jdbc.password=sonar
+sonar.jdbc.url=jdbc:postgresql://localhost:5432/sonarqube
+sonar.web.host=0.0.0.0
+sonar.web.port=9000
+EOF
+
+chown sonarqube:sonarqube /opt/sonarqube/conf/sonar.properties
+
+#############################################
+# 13. Create SonarQube Systemd Service
+#############################################
+echo "[13/13] Creating SonarQube service..."
+
+cat > /etc/systemd/system/sonarqube.service <<EOF
+[Unit]
+Description=SonarQube service
+After=syslog.target network.target postgresql.service
+
+[Service]
+Type=forking
+ExecStart=/opt/sonarqube/bin/linux-x86-64/sonar.sh start
+ExecStop=/opt/sonarqube/bin/linux-x86-64/sonar.sh stop
+User=sonarqube
+Group=sonarqube
+Restart=on-failure
+LimitNOFILE=65536
+LimitNPROC=4096
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl enable sonarqube
+systemctl start sonarqube
+
+#############################################
+# Final Information
+#############################################
+sleep 10
+
+echo ""
+echo "========== SONARQUBE INSTALLATION INFO =========="
+
+echo "Hostname: $(hostname)"
+
+echo "Private IP: $(hostname -I | awk '{print $1}')"
+
+echo "Java Version: $(java -version 2>&1 | head -n 1)"
+
+echo "PostgreSQL Status: $(systemctl is-active postgresql)"
+
+echo "SonarQube Status: $(systemctl is-active sonarqube)"
+
+echo ""
+
+echo "SonarQube URL: http://$(hostname -I | awk '{print $1}'):9000"
+
+echo "Default Login: admin / admin"
+
+echo ""
+
+echo "SonarQube installation completed"
+
+echo "Date: $(date)"
+
+echo "========== RUN $RUN_NUMBER COMPLETE =========="
+
+echo ""

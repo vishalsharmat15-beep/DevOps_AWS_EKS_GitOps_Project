@@ -1,0 +1,65 @@
+#!/bin/bash
+
+LOG_FILE="/var/log/jenkins-install.log"
+
+# Determine run number
+if [ -f "$LOG_FILE" ]; then
+    RUN_NUMBER=$(grep -c "^========== RUN " "$LOG_FILE")
+    RUN_NUMBER=$((RUN_NUMBER + 1))
+else
+    RUN_NUMBER=1
+fi
+
+# Send output to log file and console
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+echo ""
+echo "========== RUN $RUN_NUMBER =========="
+echo "Jenkins installation started"
+echo "Date: $(date)"
+echo ""
+
+set -e
+
+echo "[1/7] Updating packages..."
+apt-get update -y >/dev/null
+
+echo "[2/7] Installing prerequisites and Java..."
+apt-get install -y fontconfig openjdk-21-jre curl >/dev/null
+
+echo "[3/7] Adding Jenkins repository key..."
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key \
+  -o /usr/share/keyrings/jenkins-keyring.asc
+
+echo "[4/7] Adding Jenkins repository..."
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" \
+  > /etc/apt/sources.list.d/jenkins.list
+
+echo "[5/7] Installing Jenkins..."
+apt-get update -y >/dev/null
+apt-get install -y jenkins >/dev/null
+
+echo "[6/7] Enabling Jenkins to start automatically after reboot..."
+systemctl enable jenkins >/dev/null
+
+echo "[7/7] Starting Jenkins..."
+systemctl start jenkins
+
+echo ""
+echo "Jenkins status: $(systemctl is-active jenkins)"
+echo "Jenkins boot status: $(systemctl is-enabled jenkins)"
+
+echo ""
+echo "Initial Jenkins password:"
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
+echo ""
+echo "Jenkins installation completed"
+echo "Date: $(date)"
+echo "========== RUN $RUN_NUMBER COMPLETE =========="
+echo ""
+
+echo ""
+echo "========== INSTALLATION LOG =========="
+cat "$LOG_FILE"
+echo "======================================"

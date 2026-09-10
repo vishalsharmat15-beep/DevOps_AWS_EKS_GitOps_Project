@@ -1,0 +1,66 @@
+#!/bin/bash
+LOG_FILE="/var/log/jenkins-agent-install.log"
+
+# Determine run number
+if [ -f "$LOG_FILE" ]; then
+    RUN_NUMBER=$(grep -c "^========== RUN " "$LOG_FILE" || true)
+    RUN_NUMBER=$((RUN_NUMBER + 1))
+else
+    RUN_NUMBER=1
+fi
+
+# Send output to log file and console
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+echo ""
+echo "========== RUN $RUN_NUMBER =========="
+echo "Jenkins Agent setup started (EC2 User Data)"
+echo "Date: $(date)"
+echo ""
+
+set -e
+
+echo "[1/8] Updating packages..."
+apt-get update -y
+
+echo "[2/8] Installing Java 21..."
+apt-get install -y openjdk-21-jre-headless
+
+echo "[3/8] Verifying Java installation..."
+java -version
+
+echo "[4/8] Creating Jenkins agent directory..."
+mkdir -p /home/ubuntu/jenkins-agent
+chown -R ubuntu:ubuntu /home/ubuntu/jenkins-agent
+chmod 700 /home/ubuntu/jenkins-agent
+
+echo "[5/8] Installing basic prerequisites..."
+apt-get install -y curl wget unzip git
+
+echo "[6/8] Installing Docker..."
+apt-get install -y docker.io
+
+echo "[7/8] Enabling Docker + adding ubuntu to docker group..."
+systemctl enable docker
+systemctl start docker
+usermod -aG docker ubuntu
+
+echo "[8/8] Checking SSH service..."
+systemctl enable ssh
+systemctl start ssh
+
+echo ""
+echo "========== JENKINS AGENT INFORMATION =========="
+echo "Hostname: $(hostname)"
+echo "Private IP: $(hostname -I | awk '{print $1}')"
+echo "Java: $(java -version 2>&1 | head -n 1)"
+echo "Docker: $(docker --version 2>&1 || echo 'Docker not yet available in this session')"
+echo "SSH Status: $(systemctl is-active ssh)"
+echo "Agent Directory: /home/ubuntu/jenkins-agent"
+echo "Directory permissions: $(stat -c '%a %U:%G' /home/ubuntu/jenkins-agent)"
+echo ""
+
+echo "Jenkins Agent setup completed"
+echo "Date: $(date)"
+echo "========== RUN $RUN_NUMBER COMPLETE =========="
+echo ""
