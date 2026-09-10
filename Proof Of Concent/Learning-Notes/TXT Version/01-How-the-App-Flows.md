@@ -1,4 +1,5 @@
-Fashion Signup App – End-to-End Execution Notes
+# Fashion Signup App – End-to-End Execution Notes
+
 Complete walkthrough of architecture, configuration, request flow, and operational design
 
 1. High-Level Architecture

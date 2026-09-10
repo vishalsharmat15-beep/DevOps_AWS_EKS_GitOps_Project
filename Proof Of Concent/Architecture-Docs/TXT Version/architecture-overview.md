@@ -1,5 +1,4 @@
-Fashion Signup App
-==================
+# Fashion Signup App
 
 AWS EKS Docker Jenkins Argo CD Helm SonarQube Grafana RDS S3
 

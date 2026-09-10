@@ -1,7 +1,4 @@
-01 Architecture Overview
-------------------------
-
-========================
+# 01 Architecture Overview
 
 Java Application on AWS EKS
 

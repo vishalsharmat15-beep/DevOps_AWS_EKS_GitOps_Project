@@ -1,7 +1,4 @@
-1. Project Overview
--------------------
-
-===================
+# 1. Project Overview
 
 This project implements a complete end-to-end DevOps workflow for a Java-based web
 application deployed to Amazon Elastic Kubernetes Service (EKS). The solution

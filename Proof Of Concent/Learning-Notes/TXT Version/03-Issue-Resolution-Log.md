@@ -1,4 +1,5 @@
-Issue Resolution Log
+# Issue Resolution Log
+
 Problems encountered during the project and how they were resolved
 
 1. Git Push Conflict

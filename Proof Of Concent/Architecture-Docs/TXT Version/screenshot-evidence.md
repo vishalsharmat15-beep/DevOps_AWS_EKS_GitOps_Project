@@ -1,5 +1,4 @@
-Screenshot Evidence
-===================
+# Screenshot Evidence
 
 Current approved evidence for the Fashion Signup App final state.
 

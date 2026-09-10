@@ -1,5 +1,4 @@
-Current Architecture
-====================
+# Current Architecture
 
 Mermaid architecture source converted to Word.
 

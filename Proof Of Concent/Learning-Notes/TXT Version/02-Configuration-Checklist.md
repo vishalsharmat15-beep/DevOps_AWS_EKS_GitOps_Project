@@ -1,4 +1,5 @@
-Configuration and Operations Checklist
+# Configuration and Operations Checklist
+
 Everything that was configured and validated for the Fashion Signup App
 CI / CD
 

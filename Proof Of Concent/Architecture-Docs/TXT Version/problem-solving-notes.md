@@ -1,5 +1,4 @@
-Problem Solving Notes
-=====================
+# Problem Solving Notes
 
 What was encountered, what was fixed, and why the system ended up in this final
 architecture.

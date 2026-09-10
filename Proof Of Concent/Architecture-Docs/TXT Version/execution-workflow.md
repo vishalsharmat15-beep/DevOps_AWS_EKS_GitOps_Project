@@ -1,5 +1,4 @@
-Execution Workflow
-==================
+# Execution Workflow
 
 How the Fashion Signup App was built, deployed, monitored, and verified end to end.
 

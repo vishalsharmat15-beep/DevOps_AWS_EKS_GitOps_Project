@@ -1,7 +1,4 @@
-03 Issues Encountered and Resolved
-----------------------------------
-
-==================================
+# 03 Issues Encountered and Resolved
 
 <!-- markdownlint-disable MD024 -->
 

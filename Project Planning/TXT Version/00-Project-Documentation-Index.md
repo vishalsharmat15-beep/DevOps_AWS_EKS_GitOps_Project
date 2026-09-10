@@ -1,7 +1,4 @@
-00 Project Documentation Index
-------------------------------
-
-==============================
+# 00 Project Documentation Index
 
 Final DevOps Documentation Pack
 

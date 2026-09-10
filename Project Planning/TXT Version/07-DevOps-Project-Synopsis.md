@@ -1,7 +1,4 @@
-07 DevOps Project Synopsis
---------------------------
-
-==========================
+# 07 DevOps Project Synopsis
 
 Project Synopsis
 
