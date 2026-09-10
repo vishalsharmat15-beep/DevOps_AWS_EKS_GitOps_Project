@@ -1,83 +1,1071 @@
 # Jenkins Build #65
 
-## Build Summary
+## Build Result
 
-| Field | Result |
-| --- | --- |
-| Pipeline | Fashion-Signup-App CI |
-| Trigger | GitHub push |
-| Source branch | `main` |
-| Source revision | `979d3af7f82c8692392bfc7e05beb69805a71077` |
-| Build command | `mvn clean package` |
-| Test command | `mvn test` |
-| Build result | **SUCCESS** |
-| Build duration | 6.774 seconds for packaging |
-| Test duration | 2.197 seconds |
-| Build timestamp | 2026-09-09 05:24:53 UTC |
+- **Pipeline:** Fashion-Signup-App CI
+- **Source revision:** `979d3af7f82c8692392bfc7e05beb69805a71077`
+- **Build result:** **SUCCESS**
+- **Stages captured:** checkout, build, tests, SonarQube analysis and quality check, Docker build and push, Trivy scan, Docker cleanup, GitOps Helm update, and post actions
 
-## Natural Build Walkthrough
+## Tidy Raw Console Log
 
-### 1. Pipeline Trigger and Source Checkout
+The transcript below preserves the complete Build #65 console flow. Private workspace paths, host addresses, recipient addresses, repository owner details, credential identifiers, and analysis IDs have been redacted.
 
-The pipeline started after a GitHub push. Jenkins loaded the application pipeline definition and checked out the `main` branch at revision `979d3af7f82c8692392bfc7e05beb69805a71077`. The revision message was `Remove obsolete database scripts`.
+<details>
+<summary>Expand full Jenkins console transcript</summary>
 
-### 2. Tool and Workspace Preparation
+```textStarted by GitHub push by [owner]
+Obtained Jenkinsfile from git https://github.com/[owner]/register-app.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins-Agent in /workspace/Fashion-Signup-App CI
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using configured GitHub credential
+Fetching changes from the remote Git repository
+ > git rev-parse --resolve-git-dir /workspace/Fashion-Signup-App CI/.git # timeout=10
+ > git config remote.origin.url https://github.com/[owner]/register-app.git # timeout=10
+Fetching upstream changes from https://github.com/[owner]/register-app.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.53.0'
+using configured credential helper to set credentials github
+ > git fetch --tags --force --progress -- https://github.com/[owner]/register-app.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+Checking out Revision 979d3af7f82c8692392bfc7e05beb69805a71077 (refs/remotes/origin/main)
+Commit message: "Remove obsolete database scripts"
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 979d3af7f82c8692392bfc7e05beb69805a71077 # timeout=10
+ > git rev-list --no-walk 972d86b53ff29512bd04f83ac2c354379e6f8544 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $DOCKER_CREDENTIALS or $DOCKER_CREDENTIALS_USR or $DOCKER_CREDENTIALS_PSW
+[Pipeline] {
+[Pipeline] withEnv
+Warning: A secret was passed to "withEnv" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [DOCKER_CREDENTIALS_USR]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Tool Install)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Clean Workspace)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] cleanWs
+[WS-CLEANUP] Deleting project workspace...
+[WS-CLEANUP] Deferred wipeout is used...
+[WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Checkout SCM)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using configured GitHub credential
+Cloning the remote Git repository
+Avoid second fetch
+Checking out Revision 979d3af7f82c8692392bfc7e05beb69805a71077 (refs/remotes/origin/main)
+Commit message: "Remove obsolete database scripts"
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Application)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+Cloning repository https://github.com/[owner]/register-app.git
+ > git init /workspace/Fashion-Signup-App CI # timeout=10
+Fetching upstream changes from https://github.com/[owner]/register-app.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.53.0'
+using configured credential helper to set credentials github
+ > git fetch --tags --force --progress -- https://github.com/[owner]/register-app.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/[owner]/register-app.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 979d3af7f82c8692392bfc7e05beb69805a71077 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b main 979d3af7f82c8692392bfc7e05beb69805a71077 # timeout=10
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ mvn clean package
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.example.maven-project:server:jar:1.0-SNAPSHOT
+[WARNING] Reporting configuration should be done in <reporting> section, not in maven-site-plugin <configuration> as reportPlugins parameter.
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.example.maven-project:webapp:war:1.0-SNAPSHOT
+[WARNING] Reporting configuration should be done in <reporting> section, not in maven-site-plugin <configuration> as reportPlugins parameter.
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.example.maven-project:maven-project:pom:1.0-SNAPSHOT
+[WARNING] Reporting configuration should be done in <reporting> section, not in maven-site-plugin <configuration> as reportPlugins parameter. @ line 62, column 24
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[WARNING] The project com.example.maven-project:maven-project:pom:1.0-SNAPSHOT uses prerequisites which is only intended for maven-plugin projects but not for non maven-plugin projects. For such purposes you should use the maven-enforcer-plugin. See https://maven.apache.org/enforcer/enforcer-rules/requireMavenVersion.html
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] Fashion Signup App                                                 [pom]
+[INFO] Server                                                             [jar]
+[INFO] Fashion Signup App                                                 [war]
+[INFO] 
+[INFO] --------------< com.example.maven-project:maven-project >---------------
+[INFO] Building Fashion Signup App 1.0-SNAPSHOT                           [1/3]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ maven-project ---
+[INFO] 
+[INFO] ------------------< com.example.maven-project:server >------------------
+[INFO] Building Server 1.0-SNAPSHOT                                       [2/3]
+[INFO]   from server/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ server ---
+[INFO] 
+[INFO] --- resources:2.5:resources (default-resources) @ server ---
+[debug] execute contextualize
+[INFO] Using 'utf-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /workspace/Fashion-Signup-App CI/server/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ server ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 1 source file with javac [debug target 11] to target/classes
+[WARNING] system modules path not set in conjunction with -source 11
+[INFO] 
+[INFO] --- resources:2.5:testResources (default-testResources) @ server ---
+[debug] execute contextualize
+[INFO] Using 'utf-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /workspace/Fashion-Signup-App CI/server/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ server ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug target 11] to target/test-classes
+[WARNING] system modules path not set in conjunction with -source 11
+[INFO] 
+[INFO] --- surefire:2.11:test (default-test) @ server ---
+[INFO] Surefire report directory: /workspace/Fashion-Signup-App CI/server/target/surefire-reports
 
-Jenkins prepared the configured build tools and cleaned the workspace before compilation. The cleanup completed successfully, giving the build a fresh working directory.
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.example.TestGreeter
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.087 sec
 
-### 3. Application Compilation and Packaging
+Results :
 
-The `mvn clean package` command built the Maven reactor in this order:
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 
-1. `maven-project` parent module
-2. `server` JAR module
-3. `webapp` WAR module
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ server ---
+[INFO] Building jar: /workspace/Fashion-Signup-App CI/server/target/server.jar
+[INFO] 
+[INFO] ------------------< com.example.maven-project:webapp >------------------
+[INFO] Building Fashion Signup App 1.0-SNAPSHOT                           [3/3]
+[INFO]   from webapp/pom.xml
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ webapp ---
+[INFO] 
+[INFO] --- resources:2.5:resources (default-resources) @ webapp ---
+[debug] execute contextualize
+[INFO] Using 'utf-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /workspace/Fashion-Signup-App CI/webapp/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ webapp ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 2 source files with javac [debug target 11] to target/classes
+[WARNING] system modules path not set in conjunction with -source 11
+[INFO] 
+[INFO] --- resources:2.5:testResources (default-testResources) @ webapp ---
+[debug] execute contextualize
+[INFO] Using 'utf-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /workspace/Fashion-Signup-App CI/webapp/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ webapp ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:2.11:test (default-test) @ webapp ---
+[INFO] No tests to run.
+[INFO] Surefire report directory: /workspace/Fashion-Signup-App CI/webapp/target/surefire-reports
 
-The server module compiled one main source file and one test source file. The web module compiled two main source files and produced the application WAR. Maven completed the reactor with `BUILD SUCCESS`.
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
 
-### 4. Automated Testing
+Results :
 
-The server test class `com.example.TestGreeter` ran two tests. Both passed with zero failures, errors, or skipped tests. The web module had no tests configured for this build, so Maven reported zero tests for that module.
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
 
-### 5. Static Analysis
+[INFO] 
+[INFO] --- war:3.3.2:war (default-war) @ webapp ---
+[INFO] Packaging webapp
+[INFO] Assembling webapp [webapp] in [/workspace/Fashion-Signup-App CI/webapp/target/webapp]
+[INFO] Processing war project
+[INFO] Copying webapp resources [/workspace/Fashion-Signup-App CI/webapp/src/main/webapp]
+[INFO] Building war: /workspace/Fashion-Signup-App CI/webapp/target/webapp.war
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for Fashion Signup App 1.0-SNAPSHOT:
+[INFO] 
+[INFO] Fashion Signup App ................................. SUCCESS [  0.361 s]
+[INFO] Server ............................................. SUCCESS [  4.042 s]
+[INFO] Fashion Signup App ................................. SUCCESS [  2.127 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.774 s
+[INFO] Finished at: 2026-09-09T05:24:53Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test Application)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ mvn test
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.example.maven-project:server:jar:1.0-SNAPSHOT
+[WARNING] Reporting configuration should be done in <reporting> section, not in maven-site-plugin <configuration> as reportPlugins parameter.
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.example.maven-project:webapp:war:1.0-SNAPSHOT
+[WARNING] Reporting configuration should be done in <reporting> section, not in maven-site-plugin <configuration> as reportPlugins parameter.
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.example.maven-project:maven-project:pom:1.0-SNAPSHOT
+[WARNING] Reporting configuration should be done in <reporting> section, not in maven-site-plugin <configuration> as reportPlugins parameter. @ line 62, column 24
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[WARNING] The project com.example.maven-project:maven-project:pom:1.0-SNAPSHOT uses prerequisites which is only intended for maven-plugin projects but not for non maven-plugin projects. For such purposes you should use the maven-enforcer-plugin. See https://maven.apache.org/enforcer/enforcer-rules/requireMavenVersion.html
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] Fashion Signup App                                                 [pom]
+[INFO] Server                                                             [jar]
+[INFO] Fashion Signup App                                                 [war]
+[INFO] 
+[INFO] --------------< com.example.maven-project:maven-project >---------------
+[INFO] Building Fashion Signup App 1.0-SNAPSHOT                           [1/3]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] ------------------< com.example.maven-project:server >------------------
+[INFO] Building Server 1.0-SNAPSHOT                                       [2/3]
+[INFO]   from server/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:2.5:resources (default-resources) @ server ---
+[debug] execute contextualize
+[INFO] Using 'utf-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /workspace/Fashion-Signup-App CI/server/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ server ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:2.5:testResources (default-testResources) @ server ---
+[debug] execute contextualize
+[INFO] Using 'utf-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /workspace/Fashion-Signup-App CI/server/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ server ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:2.11:test (default-test) @ server ---
+[INFO] Surefire report directory: /workspace/Fashion-Signup-App CI/server/target/surefire-reports
 
-After packaging and testing, Jenkins started the SonarQube analysis using the configured SonarQube server. The available console evidence confirms that the analysis stage started, but it does not include the final quality-gate callback. The matching SonarQube result must therefore be verified separately before claiming that Build #65 passed the quality gate.
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.example.TestGreeter
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.054 sec
 
-### 6. Build Outcome
+Results :
 
-The captured Maven build completed successfully, generated the server JAR and application WAR, and passed the available automated tests. The console evidence also recorded configuration warnings, which are listed below rather than hidden.
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 
-## Build Results
+[INFO] 
+[INFO] ------------------< com.example.maven-project:webapp >------------------
+[INFO] Building Fashion Signup App 1.0-SNAPSHOT                           [3/3]
+[INFO]   from webapp/pom.xml
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO] 
+[INFO] --- resources:2.5:resources (default-resources) @ webapp ---
+[debug] execute contextualize
+[INFO] Using 'utf-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /workspace/Fashion-Signup-App CI/webapp/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ webapp ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:2.5:testResources (default-testResources) @ webapp ---
+[debug] execute contextualize
+[INFO] Using 'utf-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /workspace/Fashion-Signup-App CI/webapp/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ webapp ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:2.11:test (default-test) @ webapp ---
+[INFO] No tests to run.
+[INFO] Surefire report directory: /workspace/Fashion-Signup-App CI/webapp/target/surefire-reports
 
-### Maven Package
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
 
-- Reactor modules: `maven-project`, `server`, and `webapp`
-- Server compilation: successful
-- Web application compilation: successful
-- Server JAR: created successfully
-- Web application WAR: created successfully
-- Overall Maven package result: **BUILD SUCCESS**
+Results :
 
-### Automated Tests
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
 
-| Module | Tests | Failures | Errors | Skipped |
-| --- | ---: | ---: | ---: | ---: |
-| `server` | 2 | 0 | 0 | 0 |
-| `webapp` | 0 | 0 | 0 | 0 |
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for Fashion Signup App 1.0-SNAPSHOT:
+[INFO] 
+[INFO] Fashion Signup App ................................. SUCCESS [  0.002 s]
+[INFO] Server ............................................. SUCCESS [  1.685 s]
+[INFO] Fashion Signup App ................................. SUCCESS [  0.316 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.197 s
+[INFO] Finished at: 2026-09-09T05:24:58Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (SonarQube Analysis)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withSonarQubeEnv
+Injecting SonarQube environment variables using the configuration: SonarQube-Server
+[Pipeline] {
+[Pipeline] sh
++ mvn -e org.sonarsource.scanner.maven:sonar-maven-plugin:5.7.0.6970:sonar
+[INFO] Error stacktraces are turned on.
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.example.maven-project:server:jar:1.0-SNAPSHOT
+[WARNING] Reporting configuration should be done in <reporting> section, not in maven-site-plugin <configuration> as reportPlugins parameter.
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.example.maven-project:webapp:war:1.0-SNAPSHOT
+[WARNING] Reporting configuration should be done in <reporting> section, not in maven-site-plugin <configuration> as reportPlugins parameter.
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.example.maven-project:maven-project:pom:1.0-SNAPSHOT
+[WARNING] Reporting configuration should be done in <reporting> section, not in maven-site-plugin <configuration> as reportPlugins parameter. @ line 62, column 24
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[WARNING] The project com.example.maven-project:maven-project:pom:1.0-SNAPSHOT uses prerequisites which is only intended for maven-plugin projects but not for non maven-plugin projects. For such purposes you should use the maven-enforcer-plugin. See https://maven.apache.org/enforcer/enforcer-rules/requireMavenVersion.html
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] Fashion Signup App                                                 [pom]
+[INFO] Server                                                             [jar]
+[INFO] Fashion Signup App                                                 [war]
+[INFO] 
+[INFO] --------------< com.example.maven-project:maven-project >---------------
+[INFO] Building Fashion Signup App 1.0-SNAPSHOT                           [1/3]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- sonar:5.7.0.6970:sonar (default-cli) @ maven-project ---
+[INFO] Java 21.0.12.1 Eclipse Adoptium (64-bit)
+[INFO] Linux 7.0.0-1012-aws (amd64)
+[INFO] Communicating with SonarQube Community Build 25.1.0.102122
+[INFO] JRE provisioning: os[linux], arch[x86_64]
+[INFO] Starting SonarScanner Engine...
+[INFO] Java 17.0.13 Eclipse Adoptium (64-bit)
+[WARNING] Property 'env.SONARQUBE_SCANNER_PARAMS' is encrypted. The encryption of scanner properties is deprecated and will soon be removed.
+[INFO] Load global settings
+[INFO] Load global settings (done) | time=239ms
+[INFO] Server id: [redacted-server-id]
+[INFO] Loading required plugins
+[INFO] Load plugins index
+[INFO] Load plugins index (done) | time=32ms
+[INFO] Load/download plugins
+[INFO] Load/download plugins (done) | time=86ms
+[INFO] Process project properties
+[INFO] Process project properties (done) | time=28ms
+[INFO] Project key: com.example.maven-project:maven-project
+[INFO] Base dir: /workspace/Fashion-Signup-App CI
+[INFO] Working dir: /workspace/Fashion-Signup-App CI/target/sonar
+[INFO] Load project settings for component key: 'com.example.maven-project:maven-project'
+[INFO] Load project settings for component key: 'com.example.maven-project:maven-project' (done) | time=47ms
+[INFO] Load quality profiles
+[INFO] Load quality profiles (done) | time=221ms
+[INFO] Auto-configuring with CI 'Jenkins'
+[INFO] Load active rules
+[INFO] Load active rules (done) | time=682ms
+[INFO] Load analysis cache
+[INFO] Load analysis cache (2.0 kB) | time=46ms
+[INFO] Preprocessing files...
+[INFO] 5 languages detected in 18 preprocessed files
+[INFO] 0 files ignored because of scm ignore settings
+[INFO] Loading plugins for detected languages
+[INFO] Load/download plugins
+[INFO] Load/download plugins (done) | time=60ms
+[INFO] Load project repositories
+[INFO] Load project repositories (done) | time=181ms
+[INFO] Indexing files...
+[INFO] Project configuration:
+[INFO] Indexing files of module 'Server'
+[INFO]   Base dir: /workspace/Fashion-Signup-App CI/server
+[INFO]   Source paths: pom.xml, src/main/java
+[INFO]   Test paths: src/test/java
+[INFO] Indexing files of module 'Fashion Signup App'
+[INFO]   Base dir: /workspace/Fashion-Signup-App CI/webapp
+[INFO]   Source paths: src/main/webapp, pom.xml, src/main/java
+[INFO] Indexing files of module 'Fashion Signup App'
+[INFO]   Base dir: /workspace/Fashion-Signup-App CI
+[INFO]   Source paths: pom.xml
+[INFO] 18 files indexed
+[INFO] Quality profile for css: Sonar way
+[INFO] Quality profile for java: Sonar way
+[INFO] Quality profile for js: Sonar way
+[INFO] Quality profile for jsp: Sonar way
+[INFO] Quality profile for xml: Sonar way
+[INFO] ------------- Run sensors on module Fashion Signup App
+[INFO] Load metrics repository
+[INFO] Load metrics repository (done) | time=45ms
+[INFO] Sensor JavaSensor [java]
+[INFO] Configured Java source version (sonar.java.source): 11, preview features enabled (sonar.java.enablePreview): false
+[INFO] Server-side caching is enabled. The Java analyzer will not try to leverage data from a previous analysis.
+[INFO] Using ECJ batch to parse 2 Main java source files with batch size 11 KB.
+[INFO] Starting batch processing.
+[INFO] The Java analyzer cannot skip unchanged files in this context. A full analysis is performed for all files.
+[INFO] 100% analyzed
+[INFO] Batch processing: Done.
+[INFO] Did not optimize analysis for any files, performed a full analysis for all 2 files.
+[INFO] No "Test" source files to scan.
+[INFO] No "Generated" source files to scan.
+[INFO] Sensor JavaSensor [java] (done) | time=3473ms
+[INFO] Sensor SurefireSensor [java]
+[INFO] parsing [/workspace/Fashion-Signup-App CI/webapp/target/surefire-reports]
+[INFO] Sensor SurefireSensor [java] (done) | time=6ms
+[INFO] Sensor HTML [web]
+[INFO] Sensor HTML [web] (done) | time=202ms
+[INFO] Sensor XML Sensor [xml]
+[INFO] 2 source files to be analyzed
+[INFO] 2/2 source files have been analyzed
+[INFO] Sensor XML Sensor [xml] (done) | time=320ms
+[INFO] Sensor JaCoCo XML Report Importer [jacoco]
+[INFO] 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+[INFO] No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+[INFO] Sensor JaCoCo XML Report Importer [jacoco] (done) | time=3ms
+[INFO] Sensor Java Config Sensor [iac]
+[INFO] 0 source files to be analyzed
+[INFO] 0/0 source files have been analyzed
+[INFO] Sensor Java Config Sensor [iac] (done) | time=52ms
+[INFO] Sensor JavaScript/TypeScript analysis [javascript]
+[INFO] Detected os: Linux arch: amd64 alpine: false. Platform: LINUX_X64
+[INFO] Deploy location /workspace/.sonar/js/node-runtime, tagetRuntime: /workspace/.sonar/js/node-runtime/node,  version: /workspace/.sonar/js/node-runtime/version.txt
+[INFO] Using embedded Node.js runtime.
+[INFO] Using Node.js executable: '/workspace/.sonar/js/node-runtime/node'.
+[INFO] Memory configuration: OS (908 MB), Node.js (466 MB).
+[WARNING] Access to the multi-values/property set property 'sonar.javascript.file.suffixes' should be made using 'getStringArray' method. The SonarQube plugin using this property should be updated.
+[WARNING] Access to the multi-values/property set property 'sonar.typescript.file.suffixes' should be made using 'getStringArray' method. The SonarQube plugin using this property should be updated.
+[INFO] Found 0 tsconfig.json file(s): []
+[INFO] Creating TypeScript program
+[INFO] TypeScript configuration file /tmp/tmp-6041-gapM36qfLc26
+[INFO] 1 source file to be analyzed
+[INFO] Starting analysis with current program
+[INFO] Analyzed 1 file(s) with current program
+[INFO] 1/1 source file has been analyzed
+[INFO] Hit the cache for 0 out of 1
+[INFO] Miss the cache for 1 out of 1: ANALYSIS_MODE_INELIGIBLE [1/1]
+[INFO] Sensor JavaScript/TypeScript analysis [javascript] (done) | time=10926ms
+[INFO] Sensor CSS Rules [javascript]
+[INFO] 1 source file to be analyzed
+[INFO] 1/1 source file has been analyzed
+[INFO] Hit the cache for 0 out of 0
+[INFO] Miss the cache for 0 out of 0
+[INFO] Sensor CSS Rules [javascript] (done) | time=260ms
+[INFO] Sensor CSS Metrics [javascript]
+[INFO] Sensor CSS Metrics [javascript] (done) | time=169ms
+[INFO] Sensor IaC Docker Sensor [iac]
+[INFO] 0 source files to be analyzed
+[INFO] 0/0 source files have been analyzed
+[INFO] Sensor IaC Docker Sensor [iac] (done) | time=738ms
+[INFO] ------------- Run sensors on module Server
+[INFO] Sensor JavaSensor [java]
+[INFO] Configured Java source version (sonar.java.source): 11, preview features enabled (sonar.java.enablePreview): false
+[INFO] Server-side caching is enabled. The Java analyzer will not try to leverage data from a previous analysis.
+[INFO] Using ECJ batch to parse 1 Main java source files with batch size 11 KB.
+[INFO] Starting batch processing.
+[INFO] The Java analyzer cannot skip unchanged files in this context. A full analysis is performed for all files.
+[INFO] 100% analyzed
+[INFO] Batch processing: Done.
+[INFO] Did not optimize analysis for any files, performed a full analysis for all 1 files.
+[INFO] Using ECJ batch to parse 1 Test java source files with batch size 11 KB.
+[INFO] Starting batch processing.
+[INFO] 100% analyzed
+[INFO] Batch processing: Done.
+[INFO] Did not optimize analysis for any files, performed a full analysis for all 1 files.
+[INFO] No "Generated" source files to scan.
+[INFO] Sensor JavaSensor [java] (done) | time=1523ms
+[INFO] Sensor SurefireSensor [java]
+[INFO] parsing [/workspace/Fashion-Signup-App CI/server/target/surefire-reports]
+[INFO] Sensor SurefireSensor [java] (done) | time=167ms
+[INFO] Sensor HTML [web]
+[INFO] Sensor HTML [web] (done) | time=3ms
+[INFO] Sensor XML Sensor [xml]
+[INFO] 1 source file to be analyzed
+[INFO] 1/1 source file has been analyzed
+[INFO] Sensor XML Sensor [xml] (done) | time=151ms
+[INFO] Sensor JaCoCo XML Report Importer [jacoco]
+[INFO] 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+[INFO] No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+[INFO] Sensor JaCoCo XML Report Importer [jacoco] (done) | time=2ms
+[INFO] Sensor Java Config Sensor [iac]
+[INFO] 0 source files to be analyzed
+[INFO] 0/0 source files have been analyzed
+[INFO] Sensor Java Config Sensor [iac] (done) | time=12ms
+[INFO] Sensor CSS Rules [javascript]
+[INFO] No CSS, PHP, HTML or VueJS files are found in the project. CSS analysis is skipped.
+[INFO] Sensor CSS Rules [javascript] (done) | time=1ms
+[INFO] Sensor IaC Docker Sensor [iac]
+[INFO] 0 source files to be analyzed
+[INFO] 0/0 source files have been analyzed
+[INFO] Sensor IaC Docker Sensor [iac] (done) | time=11ms
+[INFO] ------------- Run sensors on module Fashion Signup App
+[INFO] Sensor HTML [web]
+[INFO] Sensor HTML [web] (done) | time=0ms
+[INFO] Sensor XML Sensor [xml]
+[INFO] 1 source file to be analyzed
+[INFO] 1/1 source file has been analyzed
+[INFO] Sensor XML Sensor [xml] (done) | time=81ms
+[INFO] Sensor JaCoCo XML Report Importer [jacoco]
+[INFO] 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+[INFO] No report imported, no coverage information will be imported by JaCoCo XML Report Importer
+[INFO] Sensor JaCoCo XML Report Importer [jacoco] (done) | time=1ms
+[INFO] Sensor Java Config Sensor [iac]
+[INFO] 0 source files to be analyzed
+[INFO] 0/0 source files have been analyzed
+[INFO] Sensor Java Config Sensor [iac] (done) | time=2ms
+[INFO] Sensor CSS Rules [javascript]
+[INFO] No CSS, PHP, HTML or VueJS files are found in the project. CSS analysis is skipped.
+[INFO] Sensor CSS Rules [javascript] (done) | time=1ms
+[INFO] Sensor IaC Docker Sensor [iac]
+[INFO] 0 source files to be analyzed
+[INFO] 0/0 source files have been analyzed
+[INFO] Sensor IaC Docker Sensor [iac] (done) | time=14ms
+[INFO] Sensor TextAndSecretsSensor [text]
+[INFO] Available processors: 2
+[INFO] Using 2 threads for analysis.
+[INFO] The property "sonar.tests" is not set. To improve the analysis accuracy, we categorize a file as a test file if any of the following is true:
+  * The filename starts with "test"
+  * The filename contains "test." or "tests."
+  * Any directory in the file path is named: "doc", "docs", "test" or "tests"
+  * Any directory in the file path has a name ending in "test" or "tests"
 
-The server test suite completed successfully. The web application module had no tests configured for this build.
+[INFO] Using git CLI to retrieve untracked files
+[INFO] Analyzing language associated files and files included via "sonar.text.inclusions" that are tracked by git
+[INFO] 11 source files to be analyzed
+[INFO] 11/11 source files have been analyzed
+[INFO] Sensor TextAndSecretsSensor [text] (done) | time=4892ms
+[INFO] ------------- Run sensors on project
+[INFO] Sensor Zero Coverage Sensor
+[INFO] Sensor Zero Coverage Sensor (done) | time=45ms
+[INFO] Sensor Java CPD Block Indexer
+[INFO] Sensor Java CPD Block Indexer (done) | time=83ms
+[INFO] CPD Executor 1 file had no CPD blocks
+[INFO] CPD Executor Calculating CPD for 4 files
+[INFO] CPD Executor CPD calculation finished (done) | time=29ms
+[INFO] SCM revision ID '979d3af7f82c8692392bfc7e05beb69805a71077'
+[INFO] Analysis report generated in 485ms, dir size=316.9 kB
+[INFO] Analysis report compressed in 117ms, zip size=62.6 kB
+[INFO] Analysis report uploaded in 114ms
+[INFO] ANALYSIS SUCCESSFUL, you can find the results at: http://[private-sonarqube-host]:9000/dashboard?id=com.example.maven-project%3Amaven-project
+[INFO] Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+[INFO] More about the report processing at http://[private-sonarqube-host]:9000/api/ce/task?id=[redacted-analysis-task-id]
+[INFO] Analysis total time: 32.449 s
+[INFO] SonarScanner Engine completed successfully
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for Fashion Signup App 1.0-SNAPSHOT:
+[INFO] 
+[INFO] Fashion Signup App ................................. SUCCESS [ 46.245 s]
+[INFO] Server ............................................. SKIPPED
+[INFO] Fashion Signup App ................................. SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  46.871 s
+[INFO] Finished at: 2026-09-09T05:25:49Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // withSonarQubeEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (SonarQube Quality Check)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] waitForQualityGate
+Checking status of SonarQube task '[redacted-analysis-task-id]' on server 'SonarQube-Server'
+SonarQube task '[redacted-analysis-task-id]' status is 'IN_PROGRESS'
+SonarQube task '[redacted-analysis-task-id]' status is 'SUCCESS'
+SonarQube task '[redacted-analysis-task-id]' completed. Quality gate is 'ERROR'
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Docker Image)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+Warning: A secret was passed to "withEnv" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [DOCKER_CREDENTIALS_USR]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[Pipeline] {
+[Pipeline] sh
++ docker build -t ****/fashion-signup-app:1.0.0-65 .
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
 
-## Warnings and Follow-up Items
+Sending build context to Docker daemon  8.259MB
+Step 1/3 : FROM tomcat:latest
+ ---> b4237a8551b3
+Step 2/3 : RUN cp -R  /usr/local/tomcat/webapps.dist/*  /usr/local/tomcat/webapps
+ ---> Running in 44dbbc0eb410
+ ---> Removed intermediate container 44dbbc0eb410
+ ---> a6b7ead35b4f
+Step 3/3 : COPY /webapp/target/*.war /usr/local/tomcat/webapps
+ ---> 70aaa6904a21
+Successfully built 70aaa6904a21
+Successfully tagged ****/fashion-signup-app:1.0.0-65
+[Pipeline] }
+[Pipeline] // withEnv
+Did you forget the `def` keyword? WorkflowScript seems to be setting a field named docker_image (to a value of type Image) which could lead to memory leaks or other issues.
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Trivy Scan)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image ****/fashion-signup-app:1.0.0-65 --no-progress --scanners vuln --exit-code 1 --severity HIGH,CRITICAL --format table
+2026-09-09T05:26:17Z	INFO	[vulndb] Need to update DB
+2026-09-09T05:26:17Z	INFO	[vulndb] Downloading vulnerability DB...
+2026-09-09T05:26:17Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-09-09T05:26:30Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-09-09T05:26:30Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-09-09T05:26:40Z	INFO	[javadb] Downloading Java DB...
+2026-09-09T05:26:40Z	INFO	[javadb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-java-db:1"
+2026-09-09T05:27:23Z	INFO	[javadb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-java-db:1"
+2026-09-09T05:27:23Z	INFO	[javadb] Java DB is cached for 3 days. If you want to update the database more frequently, "trivy clean --java-db" command clears the DB cache.
+2026-09-09T05:27:24Z	INFO	Detected OS	family="ubuntu" version="24.04"
+2026-09-09T05:27:24Z	INFO	[ubuntu] Detecting vulnerabilities...	os_version="24.04" pkg_num=118
+2026-09-09T05:27:24Z	INFO	Number of language-specific files	num=1
+2026-09-09T05:27:24Z	INFO	[jar] Detecting vulnerabilities...
 
-- Maven reported configuration warnings related to `maven-site-plugin` reporting configuration.
-- Maven warned that the project uses `prerequisites` in a non-Maven-plugin project.
-- Jenkins reported that the configured Git installation was unavailable and used the default Git installation.
-- Jenkins reported an insecure Groovy string-interpolation warning around a credential-derived environment variable. This should be corrected by avoiding secret interpolation inside `withEnv` or shell command strings.
+Report Summary
 
-## Interview Explanation
+┌──────────────────────────────────────────────────────────────────────────────────┬────────┬─────────────────┐
+│                                      Target                                      │  Type  │ Vulnerabilities │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ ****/fashion-signup-app:1.0.0-65 (ubuntu 24.04)                        │ ubuntu │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/bin/commons-daemon.jar                                          │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/bin/tomcat-juli.jar                                             │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/annotations-api.jar                                         │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/catalina-ant.jar                                            │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/catalina-ha.jar                                             │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/catalina-ssi.jar                                            │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/catalina-storeconfig.jar                                    │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/catalina-tribes.jar                                         │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/catalina.jar                                                │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/ecj-4.40.jar                                                │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/el-api.jar                                                  │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/jakartaee-migration-1.0.12-shaded.jar                       │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/jasper-el.jar                                               │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/jasper.jar                                                  │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/jaspic-api.jar                                              │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/jsp-api.jar                                                 │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/servlet-api.jar                                             │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-api.jar                                              │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-coyote-ffm.jar                                       │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-coyote.jar                                           │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-dbcp.jar                                             │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-i18n-cs.jar                                          │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-i18n-de.jar                                          │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-i18n-es.jar                                          │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-i18n-fr.jar                                          │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-i18n-ja.jar                                          │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-i18n-ko.jar                                          │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-i18n-pt-BR.jar                                       │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-i18n-ru.jar                                          │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-i18n-zh-CN.jar                                       │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-jdbc.jar                                             │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-jni.jar                                              │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-util-scan.jar                                        │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-util.jar                                             │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/tomcat-websocket.jar                                        │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/websocket-api.jar                                           │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/lib/websocket-client-api.jar                                    │  jar   │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/webapps.dist/examples/WEB-INF/lib/taglibs-standard-impl-1.2.5-- │  jar   │        0        │
+│ migrated-0.0.1.jar                                                               │        │                 │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/webapps.dist/examples/WEB-INF/lib/taglibs-standard-spec-1.2.5-- │  jar   │        0        │
+│ migrated-0.0.1.jar                                                               │        │                 │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/webapps/examples/WEB-INF/lib/taglibs-standard-impl-1.2.5-migra- │  jar   │        0        │
+│ ted-0.0.1.jar                                                                    │        │                 │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/webapps/examples/WEB-INF/lib/taglibs-standard-spec-1.2.5-migra- │  jar   │        0        │
+│ ted-0.0.1.jar                                                                    │        │                 │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ usr/local/tomcat/webapps/webapp.war                                              │  jar   │        0        │
+└──────────────────────────────────────────────────────────────────────────────────┴────────┴─────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
 
-> Build #65 demonstrates a successful Jenkins CI build for the Fashion Signup App. Jenkins checked out the application, cleaned the workspace, compiled the server and web modules, ran the available automated tests, and packaged the JAR and WAR artifacts. The build completed successfully, while the Maven and Jenkins warnings were recorded as follow-up improvements rather than hidden.
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Docker Image)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withDockerRegistry
+$ docker login -u **** -p ******** https://index.docker.io/v1/
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
 
-## Evidence Note
+WARNING! Your credentials are stored unencrypted in '/workspace/Fashion-Signup-App CI@tmp/79f9c589-1762-4474-8908-1777cffd15ba/config.json'.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
 
-This report intentionally omits credential names, agent workspace paths, and raw command output. The original Jenkins console output should be retained privately for troubleshooting, not used as the public-facing evidence document.
+Login Succeeded
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+Warning: A secret was passed to "withEnv" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [DOCKER_CREDENTIALS_USR]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[Pipeline] {
+[Pipeline] sh
++ docker tag ****/fashion-signup-app:1.0.0-65 ****/fashion-signup-app:1.0.0-65
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] isUnix
+[Pipeline] withEnv
+Warning: A secret was passed to "withEnv" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [DOCKER_CREDENTIALS_USR]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[Pipeline] {
+[Pipeline] sh
++ docker push ****/fashion-signup-app:1.0.0-65
+The push refers to repository [docker.io/****/fashion-signup-app]
+4f4fb700ef54: Waiting
+89416f64c8e9: Waiting
+fbdaa7f21d48: Waiting
+b385a54fa58d: Waiting
+6bd4a5f61a04: Waiting
+0803176e50fb: Waiting
+0926a8eb0e60: Waiting
+75383a9a746a: Waiting
+297337c1dc13: Waiting
+75383a9a746a: Waiting
+297337c1dc13: Layer already exists
+4f4fb700ef54: Layer already exists
+89416f64c8e9: Layer already exists
+fbdaa7f21d48: Layer already exists
+b385a54fa58d: Layer already exists
+6bd4a5f61a04: Layer already exists
+0803176e50fb: Waiting
+0926a8eb0e60: Layer already exists
+75383a9a746a: Pushed
+0803176e50fb: Pushed
+1.0.0-65: digest: sha256:70aaa6904a2107bfb47e08e85069b0c00ab7b5828aa99027e0447202e11eb92d size: 2700
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] isUnix
+[Pipeline] withEnv
+Warning: A secret was passed to "withEnv" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [DOCKER_CREDENTIALS_USR]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[Pipeline] {
+[Pipeline] sh
++ docker tag ****/fashion-signup-app:1.0.0-65 ****/fashion-signup-app:latest
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] isUnix
+[Pipeline] withEnv
+Warning: A secret was passed to "withEnv" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [DOCKER_CREDENTIALS_USR]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+[Pipeline] {
+[Pipeline] sh
++ docker push ****/fashion-signup-app:latest
+The push refers to repository [docker.io/****/fashion-signup-app]
+fbdaa7f21d48: Layer already exists
+297337c1dc13: Layer already exists
+0926a8eb0e60: Layer already exists
+0803176e50fb: Layer already exists
+75383a9a746a: Layer already exists
+4f4fb700ef54: Layer already exists
+b385a54fa58d: Layer already exists
+89416f64c8e9: Layer already exists
+6bd4a5f61a04: Layer already exists
+latest: digest: sha256:70aaa6904a2107bfb47e08e85069b0c00ab7b5828aa99027e0447202e11eb92d size: 2700
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withDockerRegistry
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Cleanup Docker Images)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
+Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [DOCKER_CREDENTIALS_USR]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
++ docker rmi ****/fashion-signup-app:1.0.0-65
+Untagged: ****/fashion-signup-app:1.0.0-65
+[Pipeline] sh
+Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [DOCKER_CREDENTIALS_USR]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
++ docker rmi ****/fashion-signup-app:latest
+Untagged: ****/fashion-signup-app:latest
+Deleted: sha256:70aaa6904a2107bfb47e08e85069b0c00ab7b5828aa99027e0447202e11eb92d
+Deleted: sha256:a6b7ead35b4f2c6d8226e98ad497706c8ace4fe3f8e0f716c1d2493dda0fe384
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Update GitOps Helm Values)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] dir
+Running in /workspace/Fashion-Signup-App CI/gitops-register-app
+[Pipeline] {
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using configured GitHub credential
+Cloning the remote Git repository
+Avoid second fetch
+Checking out Revision 444da573e360ed0d7b5ca2809d6877b58304b379 (refs/remotes/origin/main)
+Commit message: "Update image to 1.0.0-64"
+Cloning repository https://github.com/[owner]/gitops-register-app.git
+ > git init /workspace/Fashion-Signup-App CI/gitops-register-app # timeout=10
+Fetching upstream changes from https://github.com/[owner]/gitops-register-app.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.53.0'
+using configured credential helper to set credentials github
+ > git fetch --tags --force --progress -- https://github.com/[owner]/gitops-register-app.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/[owner]/gitops-register-app.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 444da573e360ed0d7b5ca2809d6877b58304b379 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git checkout -b main 444da573e360ed0d7b5ca2809d6877b58304b379 # timeout=10
+ > git rev-list --no-walk 3da4d064ff4918f324c662ee21eaacc00376b023 # timeout=10
+[Pipeline] sh
++ sed -i s/^  tag: .*/  tag: "1.0.0-65"/ values.yaml
+[Pipeline] sh
++ git config user.name Jenkins
++ git config user.email jenkins@localhost
+[Pipeline] withCredentials
+ > git --version # timeout=10
+ > git --version # 'git version 2.53.0'
+Masking supported pattern matches of $GIT_PASSWORD or $configured credential helper
+[Pipeline] {
+[Pipeline] sh
++ git add values.yaml
++ git diff --cached --quiet
++ git commit -m Update image to 1.0.0-65
+[main 378fd47] Update image to 1.0.0-65
+ 1 file changed, 1 insertion(+), 1 deletion(-)
++ git push origin main
+To https://github.com/[owner]/gitops-register-app.git
+   444da57..378fd47  main -> main
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] emailext
+Sending email to: [redacted recipient]
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+```
+
+</details>
+
+## Interview Note
+
+Build #65 finished with `Finished: SUCCESS`. The SonarQube task itself completed successfully, while the recorded quality gate was `ERROR`; that distinction is preserved in the raw transcript and should be explained accurately.
