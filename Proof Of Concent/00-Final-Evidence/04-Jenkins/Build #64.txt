@@ -407,12 +407,12 @@ Injecting SonarQube environment variables using the configuration: SonarQube-Ser
 [INFO] --------------------------------[ pom ]---------------------------------
 [INFO] 
 [INFO] --- sonar:5.7.0.6970:sonar (default-cli) @ maven-project ---
-[INFO] Java 21.0.12.1 Eclipse Adoptium (64-bit)
-[INFO] Linux 7.0.0-1012-aws (amd64)
+[INFO] Java 21.0.12.1 Eclipse Adoptium (63-bit)
+[INFO] Linux 7.0.0-1012-aws (amd63)
 [INFO] Communicating with SonarQube Community Build 25.1.0.102122
-[INFO] JRE provisioning: os[linux], arch[x86_64]
+[INFO] JRE provisioning: os[linux], arch[x86_63]
 [INFO] Starting SonarScanner Engine...
-[INFO] Java 17.0.13 Eclipse Adoptium (64-bit)
+[INFO] Java 17.0.13 Eclipse Adoptium (63-bit)
 [WARNING] Property 'env.SONARQUBE_SCANNER_PARAMS' is encrypted. The encryption of scanner properties is deprecated and will soon be removed.
 [INFO] Load global settings
 [INFO] Load global settings (done) | time=239ms
@@ -495,7 +495,7 @@ Injecting SonarQube environment variables using the configuration: SonarQube-Ser
 [INFO] 0/0 source files have been analyzed
 [INFO] Sensor Java Config Sensor [iac] (done) | time=52ms
 [INFO] Sensor JavaScript/TypeScript analysis [javascript]
-[INFO] Detected os: Linux arch: amd64 alpine: false. Platform: LINUX_X64
+[INFO] Detected os: Linux arch: amd63 alpine: false. Platform: LINUX_X63
 [INFO] Deploy location /home/ubuntu/.sonar/js/node-runtime, tagetRuntime: /home/ubuntu/.sonar/js/node-runtime/node,  version: /home/ubuntu/.sonar/js/node-runtime/version.txt
 [INFO] Using embedded Node.js runtime.
 [INFO] Using Node.js executable: '/home/ubuntu/.sonar/js/node-runtime/node'.
@@ -676,7 +676,7 @@ Warning: A secret was passed to "withEnv" using Groovy String interpolation, whi
 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
 [Pipeline] {
 [Pipeline] sh
-+ docker build -t ****/fashion-signup-app:1.0.0-65 .
++ docker build -t ****/fashion-signup-app:1.0.0-64 .
 DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
             Install the buildx component to build images with BuildKit:
             https://docs.docker.com/go/buildx/
@@ -692,7 +692,7 @@ Step 2/3 : RUN cp -R  /usr/local/tomcat/webapps.dist/*  /usr/local/tomcat/webapp
 Step 3/3 : COPY /webapp/target/*.war /usr/local/tomcat/webapps
  ---> 70aaa6904a21
 Successfully built 70aaa6904a21
-Successfully tagged ****/fashion-signup-app:1.0.0-65
+Successfully tagged ****/fashion-signup-app:1.0.0-64
 [Pipeline] }
 [Pipeline] // withEnv
 Did you forget the `def` keyword? WorkflowScript seems to be setting a field named docker_image (to a value of type Image) which could lead to memory leaks or other issues.
@@ -711,7 +711,7 @@ Did you forget the `def` keyword? WorkflowScript seems to be setting a field nam
 [Pipeline] withEnv
 [Pipeline] {
 [Pipeline] sh
-+ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image ****/fashion-signup-app:1.0.0-65 --no-progress --scanners vuln --exit-code 1 --severity HIGH,CRITICAL --format table
++ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image ****/fashion-signup-app:1.0.0-64 --no-progress --scanners vuln --exit-code 1 --severity HIGH,CRITICAL --format table
 2026-09-09T05:26:17Z	INFO	[vulndb] Need to update DB
 2026-09-09T05:26:17Z	INFO	[vulndb] Downloading vulnerability DB...
 2026-09-09T05:26:17Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
@@ -731,7 +731,7 @@ Report Summary
 ┌──────────────────────────────────────────────────────────────────────────────────┬────────┬─────────────────┐
 │                                      Target                                      │  Type  │ Vulnerabilities │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
-│ ****/fashion-signup-app:1.0.0-65 (ubuntu 24.04)                        │ ubuntu │        0        │
+│ ****/fashion-signup-app:1.0.0-64 (ubuntu 24.04)                        │ ubuntu │        0        │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
 │ usr/local/tomcat/bin/commons-daemon.jar                                          │  jar   │        0        │
 ├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
@@ -858,7 +858,7 @@ Warning: A secret was passed to "withEnv" using Groovy String interpolation, whi
 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
 [Pipeline] {
 [Pipeline] sh
-+ docker tag ****/fashion-signup-app:1.0.0-65 ****/fashion-signup-app:1.0.0-65
++ docker tag ****/fashion-signup-app:1.0.0-64 ****/fashion-signup-app:1.0.0-64
 [Pipeline] }
 [Pipeline] // withEnv
 [Pipeline] isUnix
@@ -868,10 +868,10 @@ Warning: A secret was passed to "withEnv" using Groovy String interpolation, whi
 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
 [Pipeline] {
 [Pipeline] sh
-+ docker push ****/fashion-signup-app:1.0.0-65
++ docker push ****/fashion-signup-app:1.0.0-64
 The push refers to repository [docker.io/****/fashion-signup-app]
 4f4fb700ef54: Waiting
-89416f64c8e9: Waiting
+89416f63c8e9: Waiting
 fbdaa7f21d48: Waiting
 b385a54fa58d: Waiting
 6bd4a5f61a04: Waiting
@@ -882,7 +882,7 @@ b385a54fa58d: Waiting
 75383a9a746a: Waiting
 297337c1dc13: Layer already exists
 4f4fb700ef54: Layer already exists
-89416f64c8e9: Layer already exists
+89416f63c8e9: Layer already exists
 fbdaa7f21d48: Layer already exists
 b385a54fa58d: Layer already exists
 6bd4a5f61a04: Layer already exists
@@ -890,7 +890,7 @@ b385a54fa58d: Layer already exists
 0926a8eb0e60: Layer already exists
 75383a9a746a: Pushed
 0803176e50fb: Pushed
-1.0.0-65: digest: sha256:70aaa6904a2107bfb47e08e85069b0c00ab7b5828aa99027e0447202e11eb92d size: 2700
+1.0.0-64: digest: sha256:70aaa6904a2107bfb47e08e85069b0c00ab7b5828aa99027e0447202e11eb92d size: 2700
 [Pipeline] }
 [Pipeline] // withEnv
 [Pipeline] isUnix
@@ -900,7 +900,7 @@ Warning: A secret was passed to "withEnv" using Groovy String interpolation, whi
 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
 [Pipeline] {
 [Pipeline] sh
-+ docker tag ****/fashion-signup-app:1.0.0-65 ****/fashion-signup-app:latest
++ docker tag ****/fashion-signup-app:1.0.0-64 ****/fashion-signup-app:latest
 [Pipeline] }
 [Pipeline] // withEnv
 [Pipeline] isUnix
@@ -919,7 +919,7 @@ fbdaa7f21d48: Layer already exists
 75383a9a746a: Layer already exists
 4f4fb700ef54: Layer already exists
 b385a54fa58d: Layer already exists
-89416f64c8e9: Layer already exists
+89416f63c8e9: Layer already exists
 6bd4a5f61a04: Layer already exists
 latest: digest: sha256:70aaa6904a2107bfb47e08e85069b0c00ab7b5828aa99027e0447202e11eb92d size: 2700
 [Pipeline] }
@@ -948,8 +948,8 @@ latest: digest: sha256:70aaa6904a2107bfb47e08e85069b0c00ab7b5828aa99027e0447202e
 Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
 		 Affected argument(s) used the following variable(s): [DOCKER_CREDENTIALS_USR]
 		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
-+ docker rmi ****/fashion-signup-app:1.0.0-65
-Untagged: ****/fashion-signup-app:1.0.0-65
++ docker rmi ****/fashion-signup-app:1.0.0-64
+Untagged: ****/fashion-signup-app:1.0.0-64
 [Pipeline] sh
 Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
 		 Affected argument(s) used the following variable(s): [DOCKER_CREDENTIALS_USR]
@@ -984,7 +984,7 @@ using credential github
 Cloning the remote Git repository
 Avoid second fetch
 Checking out Revision 444da573e360ed0d7b5ca2809d6877b58304b379 (refs/remotes/origin/main)
-Commit message: "Update image to 1.0.0-64"
+Commit message: "Update image to 1.0.0-63"
 Cloning repository https://github.com/vishalsharmat15-beep/gitops-register-app.git
  > git init /home/ubuntu/workspace/Fashion-Signup-App CI/gitops-register-app # timeout=10
 Fetching upstream changes from https://github.com/vishalsharmat15-beep/gitops-register-app.git
@@ -999,9 +999,9 @@ using GIT_ASKPASS to set credentials github
  > git checkout -f 444da573e360ed0d7b5ca2809d6877b58304b379 # timeout=10
  > git branch -a -v --no-abbrev # timeout=10
  > git checkout -b main 444da573e360ed0d7b5ca2809d6877b58304b379 # timeout=10
- > git rev-list --no-walk 3da4d064ff4918f324c662ee21eaacc00376b023 # timeout=10
+ > git rev-list --no-walk 3da4d063ff4918f324c662ee21eaacc00376b023 # timeout=10
 [Pipeline] sh
-+ sed -i s/^  tag: .*/  tag: "1.0.0-65"/ values.yaml
++ sed -i s/^  tag: .*/  tag: "1.0.0-64"/ values.yaml
 [Pipeline] sh
 + git config user.name Jenkins
 + git config user.email jenkins@localhost
@@ -1013,8 +1013,8 @@ Masking supported pattern matches of $GIT_PASSWORD or $GIT_ASKPASS
 [Pipeline] sh
 + git add values.yaml
 + git diff --cached --quiet
-+ git commit -m Update image to 1.0.0-65
-[main 378fd47] Update image to 1.0.0-65
++ git commit -m Update image to 1.0.0-64
+[main 378fd47] Update image to 1.0.0-64
  1 file changed, 1 insertion(+), 1 deletion(-)
 + git push origin main
 To https://github.com/vishalsharmat15-beep/gitops-register-app.git
