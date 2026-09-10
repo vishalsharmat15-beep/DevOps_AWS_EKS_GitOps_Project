@@ -15,14 +15,37 @@
 | Test duration | 2.197 seconds |
 | Build timestamp | 2026-09-09 05:24:53 UTC |
 
-## Pipeline Flow
+## Natural Build Walkthrough
 
-1. Jenkins checked out the application source.
-2. The workspace was cleaned before the build.
-3. Maven compiled the server and web application modules.
-4. Unit tests ran through Maven Surefire.
-5. The application WAR and server JAR artifacts were packaged successfully.
-6. SonarQube analysis was started after the build and test stages.
+### 1. Pipeline Trigger and Source Checkout
+
+The pipeline started after a GitHub push. Jenkins loaded the application pipeline definition and checked out the `main` branch at revision `979d3af7f82c8692392bfc7e05beb69805a71077`. The revision message was `Remove obsolete database scripts`.
+
+### 2. Tool and Workspace Preparation
+
+Jenkins prepared the configured build tools and cleaned the workspace before compilation. The cleanup completed successfully, giving the build a fresh working directory.
+
+### 3. Application Compilation and Packaging
+
+The `mvn clean package` command built the Maven reactor in this order:
+
+1. `maven-project` parent module
+2. `server` JAR module
+3. `webapp` WAR module
+
+The server module compiled one main source file and one test source file. The web module compiled two main source files and produced the application WAR. Maven completed the reactor with `BUILD SUCCESS`.
+
+### 4. Automated Testing
+
+The server test class `com.example.TestGreeter` ran two tests. Both passed with zero failures, errors, or skipped tests. The web module had no tests configured for this build, so Maven reported zero tests for that module.
+
+### 5. Static Analysis
+
+After packaging and testing, Jenkins started the SonarQube analysis using the configured SonarQube server. The available console evidence confirms that the analysis stage started, but it does not include the final quality-gate callback. The matching SonarQube result must therefore be verified separately before claiming that Build #65 passed the quality gate.
+
+### 6. Build Outcome
+
+The captured Maven build completed successfully, generated the server JAR and application WAR, and passed the available automated tests. The console evidence also recorded configuration warnings, which are listed below rather than hidden.
 
 ## Build Results
 
@@ -43,10 +66,6 @@
 | `webapp` | 0 | 0 | 0 | 0 |
 
 The server test suite completed successfully. The web application module had no tests configured for this build.
-
-## SonarQube Stage
-
-The pipeline started the SonarQube analysis using the configured SonarQube server. The quality-gate result should be verified from the matching SonarQube analysis record before describing this build as quality-gate-passed.
 
 ## Warnings and Follow-up Items
 
