@@ -1,7 +1,7 @@
-[submodule "Git_Repos/gitops-register-app"]
-	path = Git_Repos/gitops-register-app
-	url = https://github.com/vishalsharmat15-beep/gitops-register-app.git
+[submodule "Git_Repos/GitOps-Fashion-Signup-App"]
+	path = Git_Repos/GitOps-Fashion-Signup-App
+	url = https://github.com/vishalsharmat15-beep/GitOps-Fashion-Signup-App.git
 
-[submodule "Git_Repos/register-app"]
-	path = Git_Repos/register-app
-	url = https://github.com/vishalsharmat15-beep/register-app.git
+[submodule "Git_Repos/Fashion-Register-App"]
+	path = Git_Repos/Fashion-Register-App
+	url = https://github.com/vishalsharmat15-beep/Fashion-Register-App.git

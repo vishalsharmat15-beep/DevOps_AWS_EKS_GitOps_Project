@@ -1,5 +1,5 @@
 Started by GitHub push by vishalsharmat15-beep
-Obtained Jenkinsfile from git https://github.com/vishalsharmat15-beep/register-app.git
+Obtained Jenkinsfile from git https://github.com/vishalsharmat15-beep/Fashion-Register-App.git
 [Pipeline] Start of Pipeline
 [Pipeline] node
 Running on Jenkins-Agent in /home/ubuntu/workspace/Fashion-Signup-App CI
@@ -12,12 +12,12 @@ The recommended git tool is: NONE
 using credential github
 Fetching changes from the remote Git repository
  > git rev-parse --resolve-git-dir /home/ubuntu/workspace/Fashion-Signup-App CI/.git # timeout=10
- > git config remote.origin.url https://github.com/vishalsharmat15-beep/register-app.git # timeout=10
-Fetching upstream changes from https://github.com/vishalsharmat15-beep/register-app.git
+ > git config remote.origin.url https://github.com/vishalsharmat15-beep/Fashion-Register-App.git # timeout=10
+Fetching upstream changes from https://github.com/vishalsharmat15-beep/Fashion-Register-App.git
  > git --version # timeout=10
  > git --version # 'git version 2.53.0'
 using GIT_ASKPASS to set credentials github
- > git fetch --tags --force --progress -- https://github.com/vishalsharmat15-beep/register-app.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git fetch --tags --force --progress -- https://github.com/vishalsharmat15-beep/Fashion-Register-App.git +refs/heads/*:refs/remotes/origin/* # timeout=10
 Checking out Revision 979d3af7f82c8692392bfc7e05beb69805a71077 (refs/remotes/origin/main)
 Commit message: "Remove obsolete database scripts"
  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
@@ -88,14 +88,14 @@ Commit message: "Remove obsolete database scripts"
 [Pipeline] envVarsForTool
 [Pipeline] tool
 [Pipeline] envVarsForTool
-Cloning repository https://github.com/vishalsharmat15-beep/register-app.git
+Cloning repository https://github.com/vishalsharmat15-beep/Fashion-Register-App.git
  > git init /home/ubuntu/workspace/Fashion-Signup-App CI # timeout=10
-Fetching upstream changes from https://github.com/vishalsharmat15-beep/register-app.git
+Fetching upstream changes from https://github.com/vishalsharmat15-beep/Fashion-Register-App.git
  > git --version # timeout=10
  > git --version # 'git version 2.53.0'
 using GIT_ASKPASS to set credentials github
- > git fetch --tags --force --progress -- https://github.com/vishalsharmat15-beep/register-app.git +refs/heads/*:refs/remotes/origin/* # timeout=10
- > git config remote.origin.url https://github.com/vishalsharmat15-beep/register-app.git # timeout=10
+ > git fetch --tags --force --progress -- https://github.com/vishalsharmat15-beep/Fashion-Register-App.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/vishalsharmat15-beep/Fashion-Register-App.git # timeout=10
  > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
  > git config core.sparsecheckout # timeout=10
@@ -975,7 +975,7 @@ Deleted: sha256:a6b7ead35b4f2c6d8226e98ad497706c8ace4fe3f8e0f716c1d2493dda0fe384
 [Pipeline] script
 [Pipeline] {
 [Pipeline] dir
-Running in /home/ubuntu/workspace/Fashion-Signup-App CI/gitops-register-app
+Running in /home/ubuntu/workspace/Fashion-Signup-App CI/GitOps-Fashion-Signup-App
 [Pipeline] {
 [Pipeline] git
 Selected Git installation does not exist. Using Default
@@ -985,14 +985,14 @@ Cloning the remote Git repository
 Avoid second fetch
 Checking out Revision 444da573e360ed0d7b5ca2809d6877b58304b379 (refs/remotes/origin/main)
 Commit message: "Update image to 1.0.0-63"
-Cloning repository https://github.com/vishalsharmat15-beep/gitops-register-app.git
- > git init /home/ubuntu/workspace/Fashion-Signup-App CI/gitops-register-app # timeout=10
-Fetching upstream changes from https://github.com/vishalsharmat15-beep/gitops-register-app.git
+Cloning repository https://github.com/vishalsharmat15-beep/GitOps-Fashion-Signup-App.git
+ > git init /home/ubuntu/workspace/Fashion-Signup-App CI/GitOps-Fashion-Signup-App # timeout=10
+Fetching upstream changes from https://github.com/vishalsharmat15-beep/GitOps-Fashion-Signup-App.git
  > git --version # timeout=10
  > git --version # 'git version 2.53.0'
 using GIT_ASKPASS to set credentials github
- > git fetch --tags --force --progress -- https://github.com/vishalsharmat15-beep/gitops-register-app.git +refs/heads/*:refs/remotes/origin/* # timeout=10
- > git config remote.origin.url https://github.com/vishalsharmat15-beep/gitops-register-app.git # timeout=10
+ > git fetch --tags --force --progress -- https://github.com/vishalsharmat15-beep/GitOps-Fashion-Signup-App.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/vishalsharmat15-beep/GitOps-Fashion-Signup-App.git # timeout=10
  > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
  > git config core.sparsecheckout # timeout=10
@@ -1017,7 +1017,7 @@ Masking supported pattern matches of $GIT_PASSWORD or $GIT_ASKPASS
 [main 378fd47] Update image to 1.0.0-64
  1 file changed, 1 insertion(+), 1 deletion(-)
 + git push origin main
-To https://github.com/vishalsharmat15-beep/gitops-register-app.git
+To https://github.com/vishalsharmat15-beep/GitOps-Fashion-Signup-App.git
    444da57..378fd47  main -> main
 [Pipeline] }
 [Pipeline] // withCredentials

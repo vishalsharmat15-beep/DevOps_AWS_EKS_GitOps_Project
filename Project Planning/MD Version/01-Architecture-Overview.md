@@ -71,7 +71,7 @@ Actual Flow
 7. Jenkins pushes the image to Docker Hub.
 ------------------------------------------
 
-8. Jenkins checks out the `gitops-register-app` repository.
+8. Jenkins checks out the `GitOps-Fashion-Signup-App` repository.
 -----------------------------------------------------------
 
 9. Jenkins updates the image tag in Helm `values.yaml` and pushes that Git change.
@@ -93,7 +93,7 @@ Repository Responsibilities
 
 Application repository
 
-Location: `Git_Repos/register-app`
+Location: `Git_Repos/Fashion-Register-App`
 
 Contains:
 - Java web application source
@@ -110,7 +110,7 @@ database schema files
 
 GitOps repository
 
-Location: `Git_Repos/gitops-register-app`
+Location: `Git_Repos/GitOps-Fashion-Signup-App`
 
 Contains:
 - `Chart.yaml`: chart identity and version

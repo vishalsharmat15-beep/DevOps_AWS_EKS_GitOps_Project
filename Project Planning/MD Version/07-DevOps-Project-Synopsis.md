@@ -73,7 +73,7 @@ Application: `register-app`
 
 Contains source code, Maven files, Dockerfile, database schema, and the CI Jenkinsfile.
 
-GitOps: `gitops-register-app`
+GitOps: `GitOps-Fashion-Signup-App`
 
 Contains `Chart.yaml`, `values.yaml`, `templates/deployment.yaml`, and
 `templates/service.yaml`. It does not contain the old CD Jenkinsfile.
