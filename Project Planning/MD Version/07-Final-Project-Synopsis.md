@@ -11,7 +11,6 @@ using modern DevOps tools and practices.
 Architecture Overview
 
 2. What the Project Delivers
-----------------------------
 
 Automated Java application build and test pipeline using Maven.
 
@@ -30,7 +29,6 @@ Database connectivity to PostgreSQL RDS using Kubernetes Secrets.
 Operational visibility using Prometheus and Grafana.
 
 3. Architecture and Execution Flow
-----------------------------------
 
 The application architecture follows a clear GitOps and Kubernetes deployment pattern.
 The developer pushes code to the GitHub application repository. Jenkins detects the
@@ -47,7 +45,6 @@ and Grafana.
 EKS Cluster
 
 4. Core Technology Stack
-------------------------
 
 GitHub: source control and GitOps repository management
 
@@ -76,7 +73,6 @@ PostgreSQL RDS: persistent application database
 Prometheus + Grafana: observability and dashboards
 
 5. CI/CD and GitOps Implementation
-----------------------------------
 
 The Jenkins pipeline was structured to automate the complete software delivery process.
 It starts with a clean workspace, checks out the application code, executes Maven
@@ -91,7 +87,6 @@ source code to running application.
 Jenkins CI Pipeline
 
 6. Infrastructure and Cloud Components
---------------------------------------
 
 The project is hosted on AWS and demonstrates a real cloud-native setup. The application
 infrastructure includes networking, EC2 hosts, EKS worker nodes, RDS PostgreSQL, IAM
@@ -115,7 +110,6 @@ S3 is used for supporting storage and cloud assets related to the project.
 IAM roles and access policies govern secure resource access.
 
 7. Monitoring, Observability, and Operational Visibility
---------------------------------------------------------
 
 A key strength of the project is its operational visibility. Prometheus collects cluster
 and workload health metrics, while Grafana visualizes them through dashboards. This
@@ -127,7 +121,6 @@ application-level behavior after deployment.
 Grafana Monitoring
 
 8. GitHub and Repository Structure
-----------------------------------
 
 The project is organized into separate repositories for the application code and the
 GitOps deployment configuration. The application repository contains the Java source
@@ -140,7 +133,6 @@ operational practices.
 GitHub Repository
 
 9. Business Value and Outcome
------------------------------
 
 This project demonstrates how a Java application can be transformed from a local
 codebase into a deployed, monitored, and automated cloud-native service using AWS
@@ -150,7 +142,6 @@ modern DevOps environment. The result is a deployment model that is more consist
 repeatable, and easier to manage than traditional manual deployment methods.
 
 10. Conclusion
---------------
 
 The project successfully demonstrates a real-world DevOps lifecycle for a Java web
 application running on Amazon EKS. From GitHub to Jenkins to Docker to Kubernetes

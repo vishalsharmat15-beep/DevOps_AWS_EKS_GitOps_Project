@@ -2,9 +2,9 @@
 
 Java Application on AWS EKS
 
-Accurate Project Title
+Project Title
 
-Jenkins CI and Argo CD GitOps Deployment of a Java Application on Amazon EKS
+Jenkins CI and Argo CD GitOps Deployment of an Application on Amazon EKS
 
 Purpose
 
@@ -51,43 +51,30 @@ Prom --> Grafana[Grafana Dashboard]
 Actual Flow
 
 1. Developer pushes application code to the `register-app` GitHub repository.
------------------------------------------------------------------------------
 
 2. GitHub triggers the Jenkins CI pipeline.
--------------------------------------------
 
 3. Jenkins checks out the application and runs Maven build/tests.
------------------------------------------------------------------
 
 4. Jenkins runs SonarQube analysis.
------------------------------------
 
 5. Jenkins builds a Docker image tagged with the release and build number.
---------------------------------------------------------------------------
 
 6. Trivy scans the image for high and critical vulnerabilities.
----------------------------------------------------------------
 
 7. Jenkins pushes the image to Docker Hub.
-------------------------------------------
 
 8. Jenkins checks out the `GitOps-Fashion-Signup-App` repository.
------------------------------------------------------------
 
 9. Jenkins updates the image tag in Helm `values.yaml` and pushes that Git change.
-----------------------------------------------------------------------------------
 
 10. Argo CD detects the GitOps commit and reconciles the Helm chart.
---------------------------------------------------------------------
 
 11. Kubernetes performs a Deployment rollout and starts new application pods.
------------------------------------------------------------------------------
 
 12. Prometheus collects cluster metrics and Grafana displays dashboards.
-------------------------------------------------------------------------
 
 13. The application connects to PostgreSQL RDS using Kubernetes Secret values.
-------------------------------------------------------------------------------
 
 Repository Responsibilities
 

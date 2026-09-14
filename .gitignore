@@ -32,15 +32,15 @@ Thumbs.db
 
 # Generated HTML companions can be tracked intentionally
 
-# Interview-ready project notes: keep the showcase clean while leaving the main project material available locally.
-# Only the one interview-specific internal note is excluded from Git; the three Learning-Notes files remain in the main project.
+# Private working notes and historical documentation remain outside the public showcase.
 Project Planning/**/00-Master-Execution-Plan.*
 Project Planning/**/02-DevOps-Tools-and-Code-Guide.*
 Project Planning/**/04-Final-Evidence-Screenshot-Plan.*
 Project Planning/**/05-AWS-Resource-Cleanup-Runbook.*
 Project Planning/**/06-Operations-and-Interview-Guide.*
 Project Planning/**/09-Technical-Command-Reference.*
-Proof Of Concent/Architecture-Docs/**/final-project-title.*
-Proof Of Concent/Learning-Notes/README.md
-Proof Of Concent/Learning-Notes/**/04-Interview-Ready-Summary.*
-Proof Of Concent/Learning-Notes/**/04-Interview-Ready-Explanation.*
+Project Evidence/Documentation Archive/
+Project Evidence/Architecture-Docs/**/final-project-title.*
+Project Evidence/Learning-Notes/README.md
+Project Evidence/Learning-Notes/**/04-Interview-Ready-Summary.*
+Project Evidence/Learning-Notes/**/04-Interview-Ready-Explanation.*
