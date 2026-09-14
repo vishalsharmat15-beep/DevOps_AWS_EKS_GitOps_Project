@@ -12,12 +12,6 @@ This document lists concrete project issues, their fixes, and the validation tha
 
 **Validation:** The local branch and remote branch reported the same commit.
 
-## Helm Unavailable on the Bootstrap Host
-
-**Problem:** Helm commands were unavailable on the EKS administration host.
-
-**Resolution:** Installed Helm on the administration host and verified chart commands before using it for deployment operations.
-
 ## Grafana LoadBalancer Access
 
 **Problem:** Grafana was pending or unreachable from outside the cluster.
